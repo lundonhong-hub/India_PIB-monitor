@@ -35,7 +35,7 @@ from email.utils import formatdate
 # ★중요: 아래 Regid 값은 사이트에서 Region을 "National"로 고른 뒤
 #   Press Releases RSS 링크의 실제 URL을 확인해서 그 값으로 맞출 것.
 #   (화면에서 본 목록은 지역=Mumbai 기준이었음. National은 Regid가 다를 수 있음.)
-RSS_URL = "https://pib.gov.in/RssMain.aspx?ModId=6&Lang=2&Regid=3"
+RSS_URL = "https://pib.gov.in/RssMain.aspx?ModId=6&Lang=3&Regid=3"
 
 # 감시 키워드 (제목에서 소문자로 매칭). PIB RSS엔 본문(description)이 없어서
 # 제목에만 걸린다 → 넓게 잡아두고 메일 받아보며 조절하는 게 실전.
