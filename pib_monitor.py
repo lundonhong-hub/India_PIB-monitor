@@ -46,8 +46,7 @@ KEYWORDS = [
     "copper pipe",
     "copper alloy",
     "refined copper",
-    "hindustan copper",
-    "10773",
+    "hindustan copper",    
     # --- 티어2: 무역구제 (수출기업 최우선) ---
     "anti-dumping",
     "anti dumping",
