@@ -270,6 +270,7 @@ def main():
         if it["prid"] in seen_set:
             continue
         new_prids.append(it["prid"])          # 신규는 봤으니 기억 (매칭 여부 무관)
+        log(f"제목확인: {it['title'][:80]}")
         hits = match_keywords(it["title"])
         if hits:
             it["hits"] = hits
