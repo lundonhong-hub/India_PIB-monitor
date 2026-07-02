@@ -41,7 +41,7 @@ RSS_URL = "https://pib.gov.in/RssMain.aspx?ModId=6&Lang=1&Regid=3"
 # 제목에만 걸린다 → 넓게 잡아두고 메일 받아보며 조절하는 게 실전.
 KEYWORDS = [
     # --- 티어1: 제품 직결 ---
-    "copper", "minister",
+    "copper", "india",
     "copper tube",
     "copper pipe",
     "copper alloy",
