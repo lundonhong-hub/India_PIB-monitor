@@ -1,0 +1,49 @@
+name: PIB Monitor
+
+on:
+  schedule:
+    # 15분마다 실행 (RSS는 가벼워서 자주 돌려도 부담 없음).
+    # 필요하면 "*/30 * * * *"(30분) 등으로 조절.
+    - cron: "*/15 * * * *"
+  workflow_dispatch:        # Actions 탭에서 수동 실행용
+
+# state.json 커밋을 위해 쓰기 권한 부여
+permissions:
+  contents: write
+
+# 겹쳐 실행 방지 (앞 회차가 돌고 있으면 새 회차는 취소)
+concurrency:
+  group: pib-monitor
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run PIB monitor
+        env:
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          ALERT_TO: ${{ secrets.ALERT_TO }}
+        run: python pib_monitor.py
+
+      - name: Commit state.json
+        if: always()          # 스크립트가 실패(exit 1)해도 state 커밋 시도
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add state.json || true
+          if git diff --staged --quiet; then
+            echo "변경 없음 — 커밋 생략"
+          else
+            git commit -m "update state.json [skip ci]"
+            git push
+          fi
